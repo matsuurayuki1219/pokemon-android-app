@@ -1,7 +1,6 @@
-package jp.matsuura.pokemon.androidapp.data.entity
+package jp.matsuura.pokemon.androidapp.data.entity.generated
 
 import com.squareup.moshi.JsonClass
-import jp.matsuura.pokemon.androidapp.data.entity.generated.Result
 
 @JsonClass(generateAdapter = true)
 data class PokemonEntity(
