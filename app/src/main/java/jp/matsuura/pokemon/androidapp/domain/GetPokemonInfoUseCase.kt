@@ -1,6 +1,7 @@
 package jp.matsuura.pokemon.androidapp.domain
 
 import jp.matsuura.pokemon.androidapp.data.repository.PokemonRepository
+import jp.matsuura.pokemon.androidapp.model.PokemonModel
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -8,7 +9,19 @@ import javax.inject.Singleton
 class GetPokemonInfoUseCase @Inject constructor(
     private val pokemonRepository: PokemonRepository,
 ){
-    suspend operator fun invoke() {
-
+    suspend operator fun invoke(): List<PokemonModel> {
+        val pokemonList = pokemonRepository.getPokemonInfo()
+        return pokemonList.results.map {
+            val pokemonId = it.url.replace("https://pokeapi.co/api/v2/pokemon/", "")
+            val name = it.name
+            val imageUrl = pokemonRepository.getPokemonDetail(
+                pokemonId = pokemonId.toInt(),
+            ).sprites.front_default
+            PokemonModel(
+                id = pokemonId,
+                name = name,
+                imageUrl,
+            )
+        }
     }
 }
