@@ -51,6 +51,7 @@ android {
 
 dependencies {
 
+    // default
     implementation Deps.AndroidX.kotlin
     implementation Deps.AndroidX.lifecycle
     implementation Deps.AndroidX.Activity.compose
@@ -63,5 +64,8 @@ dependencies {
     androidTestImplementation Deps.AndroidX.Compose.UI.jUnit
     debugImplementation Deps.AndroidX.Compose.UI.tooling
     debugImplementation Deps.AndroidX.Compose.UI.manifest
+
+    // navigation compose
+    implementation Deps.AndroidX.Navigation.compose
 
 }

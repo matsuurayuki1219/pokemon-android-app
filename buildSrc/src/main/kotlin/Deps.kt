@@ -26,6 +26,10 @@ object Deps {
 
         }
 
+        object Navigation {
+            const val compose = "androidx.navigation:navigation-compose:2.5.3"
+        }
+
         object Test {
             const val jUnit = "androidx.test.ext:junit:1.1.5"
             const val espresso = "androidx.test.espresso:espresso-core:3.5.1"
