@@ -1,4 +1,4 @@
-package jp.matsuura.pokemon.androidapp
+package jp.matsuura.pokemon.androidapp.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
