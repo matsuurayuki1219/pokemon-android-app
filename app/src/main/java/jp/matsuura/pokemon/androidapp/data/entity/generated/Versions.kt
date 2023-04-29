@@ -6,19 +6,19 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class Versions(
     @Json(name = "generation-i")
-    val generation1: GenerationI,
+    val generation1: GenerationI?,
     @Json(name = "generation-ii")
-    val generation2: GenerationIi,
+    val generation2: GenerationIi?,
     @Json(name = "generation-iii")
-    val generation3: GenerationIii,
+    val generation3: GenerationIii?,
     @Json(name = "generation-iv")
-    val generation4: GenerationIv,
+    val generation4: GenerationIv?,
     @Json(name = "generation-v")
-    val generation5: GenerationV,
+    val generation5: GenerationV?,
     @Json(name = "generation-vi")
-    val generation6: GenerationVi,
+    val generation6: GenerationVi?,
     @Json(name = "generation-vii")
-    val generation7: GenerationVii,
+    val generation7: GenerationVii?,
     @Json(name = "generation-viii")
-    val generation8: GenerationViii
+    val generation8: GenerationViii?
 )

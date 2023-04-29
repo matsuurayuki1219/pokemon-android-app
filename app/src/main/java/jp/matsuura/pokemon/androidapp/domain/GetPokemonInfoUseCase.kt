@@ -12,7 +12,7 @@ class GetPokemonInfoUseCase @Inject constructor(
     suspend operator fun invoke(): List<PokemonModel> {
         val pokemonList = pokemonRepository.getPokemonInfo()
         return pokemonList.results.map {
-            val pokemonId = it.url.replace("https://pokeapi.co/api/v2/pokemon/", "")
+            val pokemonId = "2"
             val name = it.name
             val imageUrl = pokemonRepository.getPokemonDetail(
                 pokemonId = pokemonId.toInt(),

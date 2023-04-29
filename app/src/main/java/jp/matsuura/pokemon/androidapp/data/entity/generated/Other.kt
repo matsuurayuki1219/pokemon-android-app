@@ -5,8 +5,8 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class Other(
-    val dream_world: DreamWorld,
-    val home: Home,
+    val dream_world: DreamWorld?,
+    val home: Home?,
     @Json(name = "official-artwork")
-    val official_artwork: OfficialArtwork
+    val official_artwork: OfficialArtwork?,
 )

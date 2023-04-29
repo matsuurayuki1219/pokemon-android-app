@@ -5,7 +5,7 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class GenerationVii(
-    val icons: Icons,
+    val icons: Icons?,
     @Json(name = "ultra-sun-ultra-moon")
-    val ultra_sun_ultra_moon: UltraSunUltraMoon
+    val ultra_sun_ultra_moon: UltraSunUltraMoon?
 )
