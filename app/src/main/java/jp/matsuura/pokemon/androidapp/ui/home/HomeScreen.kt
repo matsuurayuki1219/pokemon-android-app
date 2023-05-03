@@ -1,5 +1,6 @@
 package jp.matsuura.pokemon.androidapp.ui.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,15 +10,14 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import jp.matsuura.pokemon.androidapp.model.PokemonModel
 import jp.matsuura.pokemon.androidapp.ui.common.ProgressIndicator
@@ -25,18 +25,31 @@ import jp.matsuura.pokemon.androidapp.ui.common.ProgressIndicator
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
+    onCardItemClicked: (Int) -> Unit,
 ) {
-    val state by viewModel.uiState.collectAsState()
-    HomeScreen(state = state)
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    HomeScreen(
+        state = state,
+        onCardItemClicked = { pokemonId ->
+            // FIXME: notify the event to ViewModel.
+            onCardItemClicked(pokemonId.toInt())
+        }
+    )
+    // TODO: handle the one-shot event.
 }
 
 @Composable
 fun HomeScreen(
     state: HomeScreenState,
+    onCardItemClicked: (String) -> Unit,
 ) {
+    // FIXME: replace app top bar.
     Title()
     if (state.isLoading) ProgressIndicator()
-    PokemonListItem(pokemonList = state.pokemonList)
+    PokemonListItem(
+        pokemonList = state.pokemonList,
+        onCardItemClicked = onCardItemClicked,
+    )
 }
 
 @Composable
@@ -54,13 +67,17 @@ fun Title() {
 @Composable
 fun PokemonListItem(
     pokemonList: List<PokemonModel>,
+    onCardItemClicked: (String) -> Unit,
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = Modifier.padding(top = 80.dp),
     ) {
         items(pokemonList) { pokemon ->
-            PokemonItem(pokemon = pokemon)
+            PokemonItem(
+                pokemon = pokemon,
+                onCardItemClicked = onCardItemClicked,
+            )
         }
     }
 }
@@ -68,12 +85,14 @@ fun PokemonListItem(
 @Composable
 fun PokemonItem(
     pokemon: PokemonModel,
+    onCardItemClicked: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 8.dp, start = 16.dp, end = 16.dp, bottom = 16.dp)
     ) {
+        // FIXME: fix the ripple effect.
         Card(
             shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(
@@ -81,7 +100,10 @@ fun PokemonItem(
             ),
             elevation = CardDefaults.cardElevation(
                 defaultElevation = 8.dp
-            )
+            ),
+            modifier = Modifier.clickable {
+                onCardItemClicked(pokemon.id)
+            }
         ) {
             AsyncImage(
                 model = pokemon.imageUrl,
