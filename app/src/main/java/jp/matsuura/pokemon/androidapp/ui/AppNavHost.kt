@@ -6,7 +6,6 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import jp.matsuura.pokemon.androidapp.ui.Destination.Home.route
 import jp.matsuura.pokemon.androidapp.ui.detail.DetailScreen
 import jp.matsuura.pokemon.androidapp.ui.home.HomeScreen
 
@@ -36,7 +35,11 @@ fun AppNavHost(navController: NavHostController) {
                 },
             ),
         ) {
-            DetailScreen()
+            DetailScreen(
+                onButtonClicked = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 

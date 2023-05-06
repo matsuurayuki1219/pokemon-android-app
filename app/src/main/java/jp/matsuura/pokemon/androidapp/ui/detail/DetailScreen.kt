@@ -1,6 +1,8 @@
 package jp.matsuura.pokemon.androidapp.ui.detail
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AssistChip
@@ -12,32 +14,41 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import dagger.hilt.android.lifecycle.HiltViewModel
+import jp.matsuura.pokemon.androidapp.R
 import jp.matsuura.pokemon.androidapp.model.PokemonType
 import jp.matsuura.pokemon.androidapp.ui.common.ProgressIndicator
 import kotlin.math.ceil
 
 @Composable
 fun DetailScreen(
-    viewModel: DetailViewModel = hiltViewModel()
+    viewModel: DetailViewModel = hiltViewModel(),
+    onButtonClicked: (Unit) -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     DetailScreen(
         state = state,
+        onButtonClicked = onButtonClicked,
     )
 }
 
 @Composable
 fun DetailScreen(
     state: DetailScreenState,
+    onButtonClicked: (Unit) -> Unit,
 ) {
     if (state.isProgressVisible) ProgressIndicator()
+    BackButton(
+        onButtonClicked = onButtonClicked,
+    )
     if (state.pokemonInfo == null) return
     Column {
         JacketItem(
@@ -50,6 +61,30 @@ fun DetailScreen(
             weight = state.pokemonInfo.weight,
             height = state.pokemonInfo.height,
         )
+    }
+}
+
+@Composable
+fun BackButton(
+    onButtonClicked: (Unit) -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .padding(start = 16.dp, top = 16.dp)
+            .zIndex(20f)
+            .clickable { onButtonClicked(Unit) },
+    ) {
+        Column(
+            modifier = Modifier
+                .clip(shape = RoundedCornerShape(40.dp))
+                .background(Color.White)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_back_button),
+                contentDescription = null,
+                modifier = Modifier.padding(8.dp)
+            )
+        }
     }
 }
 
