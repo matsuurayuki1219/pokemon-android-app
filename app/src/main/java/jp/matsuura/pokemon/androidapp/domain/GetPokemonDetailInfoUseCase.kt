@@ -1,8 +1,12 @@
 package jp.matsuura.pokemon.androidapp.domain
 
 import jp.matsuura.pokemon.androidapp.data.converter.toModel
+import jp.matsuura.pokemon.androidapp.data.entity.generated.Chain
+import jp.matsuura.pokemon.androidapp.data.entity.generated.SpeciesXXX
 import jp.matsuura.pokemon.androidapp.data.repository.PokemonRepository
 import jp.matsuura.pokemon.androidapp.model.PokemonDetailModel
+import jp.matsuura.pokemon.androidapp.model.PokemonEvolutionModel
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -13,7 +17,6 @@ class GetPokemonDetailInfoUseCase @Inject constructor(
 
     suspend operator fun invoke(pokemonId: Int): PokemonDetailModel {
         val pokemon = pokemonRepository.getPokemonDetail(pokemonId = pokemonId)
-        val id = pokemonId
         val name = pokemon.name
         val imageUri = pokemon.sprites.other?.official_artwork?.front_default
             ?: throw IllegalStateException("image url is not found.")
@@ -22,13 +25,49 @@ class GetPokemonDetailInfoUseCase @Inject constructor(
         val types = pokemon.types.map {
             it.toModel()
         }
+
+        // FIXME: should be refactored later.
+        val evolutionChainId = pokemonRepository.getPokemonSpecies(
+            pokemonId = pokemonId
+        ).evolution_chain.url
+            .replace("https://pokeapi.co/api/v2/evolution-chain/", "")
+            .replace("/","")
+            .toInt()
+
+        val evolutionInfo = pokemonRepository.getPokemonEvolution(
+            id = evolutionChainId
+        ).chain
+
+        val a = flattenEvolutionChain(evolutionChain = evolutionInfo).map {
+            val id = it.url.replace("https://pokeapi.co/api/v2/pokemon-species/", "").replace("/", "").toInt()
+            PokemonEvolutionModel(
+                id = id,
+                name = it.name,
+                imageUrl = pokemonRepository.getPokemonDetail(pokemonId = id).sprites.other?.official_artwork?.front_default ?: throw IllegalStateException()
+            )
+        }
+
+        Timber.d(a.toString())
         return PokemonDetailModel(
-            id = id,
+            id = pokemonId,
             name = name,
             imageUrl = imageUri,
             types = types,
             weight = weight,
             height = height,
+            evolutions = a,
         )
     }
+
+    fun flattenEvolutionChain(evolutionChain: Chain): List<SpeciesXXX> {
+        val speciesList = mutableListOf<SpeciesXXX>()
+        speciesList.add(evolutionChain.species)
+
+        for (evolvesTo in evolutionChain.evolves_to) {
+            speciesList.addAll(flattenEvolutionChain(evolvesTo))
+        }
+
+        return speciesList
+    }
+
 }

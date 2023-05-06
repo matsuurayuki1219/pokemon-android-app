@@ -1,13 +1,12 @@
 package jp.matsuura.pokemon.androidapp.ui.detail
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.AssistChip
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -24,6 +23,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.matsuura.pokemon.androidapp.R
+import jp.matsuura.pokemon.androidapp.model.PokemonEvolutionModel
 import jp.matsuura.pokemon.androidapp.model.PokemonType
 import jp.matsuura.pokemon.androidapp.ui.common.ProgressIndicator
 import kotlin.math.ceil
@@ -50,7 +50,9 @@ fun DetailScreen(
         onButtonClicked = onButtonClicked,
     )
     if (state.pokemonInfo == null) return
-    Column {
+    Column(
+        modifier = Modifier.verticalScroll(rememberScrollState())
+    ) {
         JacketItem(
             id = state.pokemonInfo.id,
             name = state.pokemonInfo.name,
@@ -60,6 +62,9 @@ fun DetailScreen(
         BreedingItems(
             weight = state.pokemonInfo.weight,
             height = state.pokemonInfo.height,
+        )
+        EvolutionItems(
+            evolutionInfo = state.pokemonInfo.evolutions
         )
     }
 }
@@ -193,5 +198,56 @@ fun BreedingItem(key: String, value: String) {
             )
         }
         Spacer(modifier = Modifier.padding(end = 12.dp))
+    }
+}
+
+@Composable
+fun EvolutionItems(evolutionInfo: List<PokemonEvolutionModel>) {
+    Text(
+        modifier = Modifier.padding(top = 20.dp, bottom = 12.dp, start = 24.dp, end = 24.dp),
+        text = "EVOLUTION",
+        fontSize = 20.sp,
+        textAlign = TextAlign.Left,
+    )
+    evolutionInfo.forEach {
+        EvolutionItem(evolutionInfo = it)
+    }
+}
+
+@Composable
+fun EvolutionItem(evolutionInfo: PokemonEvolutionModel) {
+    Column(
+        modifier = Modifier.padding(top = 16.dp, start = 24.dp, end = 24.dp)
+    ) {
+        Card(
+            shape = RoundedCornerShape(20.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = Color.White,
+            ),
+            elevation = CardDefaults.cardElevation(
+                defaultElevation = 8.dp
+            ),
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(12.dp)
+            ) {
+                AsyncImage(
+                    model = evolutionInfo.imageUrl,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .width(64.dp)
+                        .height(64.dp),
+                )
+                Text(
+                    text = evolutionInfo.name,
+                    fontSize = 14.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 4.dp, bottom = 16.dp),
+                )
+            }
+        }
     }
 }

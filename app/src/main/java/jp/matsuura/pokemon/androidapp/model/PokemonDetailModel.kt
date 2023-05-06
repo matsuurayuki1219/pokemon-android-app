@@ -7,4 +7,5 @@ data class PokemonDetailModel(
     val types: List<PokemonType>,
     val weight: Int,
     val height: Int,
+    val evolutions: List<PokemonEvolutionModel>
 )
