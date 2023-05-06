@@ -1,10 +1,8 @@
 package jp.matsuura.pokemon.androidapp.ui.home
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -38,30 +36,31 @@ fun HomeScreen(
     // TODO: handle the one-shot event.
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     state: HomeScreenState,
     onCardItemClicked: (String) -> Unit,
 ) {
-    // FIXME: replace app top bar.
-    Title()
-    if (state.isLoading) ProgressIndicator()
-    PokemonListItem(
-        pokemonList = state.pokemonList,
-        onCardItemClicked = onCardItemClicked,
-    )
-}
-
-@Composable
-fun Title() {
-    Text(
-        text = "ポケモン図鑑",
-        fontSize = 18.sp,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 32.dp),
-        textAlign = TextAlign.Center,
-    )
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(text = "Pokemon Library")
+                },
+            )
+        },
+    ) {
+        Box(
+            modifier = Modifier.padding(it),
+        ) {
+            if (state.isLoading) ProgressIndicator()
+            PokemonListItem(
+                pokemonList = state.pokemonList,
+                onCardItemClicked = onCardItemClicked,
+            )
+        }
+    }
 }
 
 @Composable
@@ -71,7 +70,6 @@ fun PokemonListItem(
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        modifier = Modifier.padding(top = 80.dp),
     ) {
         items(pokemonList) { pokemon ->
             PokemonItem(
