@@ -13,13 +13,15 @@ class GetPokemonInfoUseCase @Inject constructor(
         val pokemonList = pokemonRepository.getPokemonInfo()
         return pokemonList.results.map {
             val pokemonId = it.url.replace("https://pokeapi.co/api/v2/pokemon/", "").replace("/", "")
-            val name = it.name
+            val enName = it.name
+            val jaName = pokemonRepository.getPokemonJaName(pokemonId = pokemonId.toInt())
             val imageUrl = pokemonRepository.getPokemonDetail(
                 pokemonId = pokemonId.toInt(),
             ).sprites.other?.official_artwork?.front_default
             PokemonModel(
                 id = pokemonId,
-                name = name,
+                enName = enName,
+                jaName = jaName,
                 imageUrl = imageUrl ?: "",
             )
         }

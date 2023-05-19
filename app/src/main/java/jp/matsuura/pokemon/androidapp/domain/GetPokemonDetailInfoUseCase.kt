@@ -17,7 +17,8 @@ class GetPokemonDetailInfoUseCase @Inject constructor(
 
     suspend operator fun invoke(pokemonId: Int): PokemonDetailModel {
         val pokemon = pokemonRepository.getPokemonDetail(pokemonId = pokemonId)
-        val name = pokemon.name
+        val enName = pokemon.name
+        val jaName = pokemonRepository.getPokemonJaName(pokemonId = pokemonId)
         val imageUri = pokemon.sprites.other?.official_artwork?.front_default
             ?: throw IllegalStateException("image url is not found.")
         val weight = pokemon.weight
@@ -40,9 +41,11 @@ class GetPokemonDetailInfoUseCase @Inject constructor(
 
         val a = flattenEvolutionChain(evolutionChain = evolutionInfo).map {
             val id = it.url.replace("https://pokeapi.co/api/v2/pokemon-species/", "").replace("/", "").toInt()
+            val jaName = pokemonRepository.getPokemonJaName(pokemonId = id)
             PokemonEvolutionModel(
                 id = id,
-                name = it.name,
+                enName = it.name,
+                jaName = jaName,
                 imageUrl = pokemonRepository.getPokemonDetail(pokemonId = id).sprites.other?.official_artwork?.front_default ?: throw IllegalStateException()
             )
         }
@@ -50,7 +53,8 @@ class GetPokemonDetailInfoUseCase @Inject constructor(
         Timber.d(a.toString())
         return PokemonDetailModel(
             id = pokemonId,
-            name = name,
+            enName= enName,
+            jaName = jaName,
             imageUrl = imageUri,
             types = types,
             weight = weight,

@@ -26,7 +26,7 @@ data class PokemonSpeciesEntity(
 //    val is_legendary: Boolean,
 //    val is_mythical: Boolean,
 //    val name: String,
-//    val names: List<Name>,
+    val names: List<Name>,
 //    val order: Int,
 //    val pal_park_encounters: List<PalParkEncounter>,
 //    val pokedex_numbers: List<PokedexNumber>,
