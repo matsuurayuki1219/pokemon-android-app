@@ -2,9 +2,6 @@ package jp.matsuura.pokemon.androidapp.ui.detail
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -21,7 +18,6 @@ import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
-import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.matsuura.pokemon.androidapp.R
 import jp.matsuura.pokemon.androidapp.model.PokemonEvolutionModel
 import jp.matsuura.pokemon.androidapp.model.PokemonType
@@ -32,11 +28,13 @@ import kotlin.math.ceil
 fun DetailScreen(
     viewModel: DetailViewModel = hiltViewModel(),
     onButtonClicked: (Unit) -> Unit,
+    onPokemonClicked: (Int) -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     DetailScreen(
         state = state,
         onButtonClicked = onButtonClicked,
+        onPokemonClicked = onPokemonClicked,
     )
 }
 
@@ -44,6 +42,7 @@ fun DetailScreen(
 fun DetailScreen(
     state: DetailScreenState,
     onButtonClicked: (Unit) -> Unit,
+    onPokemonClicked: (Int) -> Unit,
 ) {
     if (state.isProgressVisible) ProgressIndicator()
     BackButton(
@@ -64,7 +63,8 @@ fun DetailScreen(
             height = state.pokemonInfo.height,
         )
         EvolutionItems(
-            evolutionInfo = state.pokemonInfo.evolutions
+            evolutionInfo = state.pokemonInfo.evolutions,
+            onPokemonClicked = onPokemonClicked,
         )
     }
 }
@@ -202,7 +202,10 @@ fun BreedingItem(key: String, value: String) {
 }
 
 @Composable
-fun EvolutionItems(evolutionInfo: List<PokemonEvolutionModel>) {
+fun EvolutionItems(
+    evolutionInfo: List<PokemonEvolutionModel>,
+    onPokemonClicked: (Int) -> Unit,
+) {
     Text(
         modifier = Modifier.padding(top = 20.dp, bottom = 16.dp, start = 24.dp, end = 24.dp),
         text = "EVOLUTION",
@@ -210,16 +213,23 @@ fun EvolutionItems(evolutionInfo: List<PokemonEvolutionModel>) {
         textAlign = TextAlign.Left,
     )
     evolutionInfo.forEach {
-        EvolutionItem(evolutionInfo = it)
+        EvolutionItem(
+            evolutionInfo = it,
+            onPokemonClicked = onPokemonClicked,
+        )
     }
 }
 
 @Composable
-fun EvolutionItem(evolutionInfo: PokemonEvolutionModel) {
+fun EvolutionItem(
+    evolutionInfo: PokemonEvolutionModel,
+    onPokemonClicked: (Int) -> Unit,
+) {
     Column(
         modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 12.dp)
     ) {
         Card(
+            modifier = Modifier.clickable { onPokemonClicked(evolutionInfo.id) },
             shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(
                 containerColor = Color.White,

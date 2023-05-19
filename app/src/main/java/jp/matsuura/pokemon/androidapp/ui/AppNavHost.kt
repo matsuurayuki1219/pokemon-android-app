@@ -38,6 +38,11 @@ fun AppNavHost(navController: NavHostController) {
             DetailScreen(
                 onButtonClicked = {
                     navController.popBackStack()
+                },
+                onPokemonClicked = { pokemonId ->
+                    navController.navigate(
+                        Destination.Detail.route + "/${pokemonId}"
+                    )
                 }
             )
         }
