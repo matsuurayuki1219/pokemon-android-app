@@ -153,10 +153,10 @@ fun PokemonTypeItem(type: PokemonType) {
         Row(
             modifier = Modifier
                 .clip(shape = RoundedCornerShape(20.dp))
-                .background(Color.Gray),
+                .background(type.color),
         ) {
             Text(
-                text = type.name,
+                text = type.type,
                 modifier = Modifier.padding(8.dp),
                 fontSize = 14.sp,
                 textAlign = TextAlign.Center,
