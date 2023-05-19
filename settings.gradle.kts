@@ -17,6 +17,5 @@ rootProject.name = "PokemonAndroidApp"
 include(":app")
 include(":data:api")
 include(":data:repository")
-include(":data:entity")
 include(":domain")
 include(":model")

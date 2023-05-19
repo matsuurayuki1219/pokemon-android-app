@@ -1,8 +1,8 @@
 package jp.matsuura.pokemon.domain
 
 import jp.matsuura.pokemon.domain.converter.toModel
-import jp.matsuura.pokemon.entity.generated.Chain
-import jp.matsuura.pokemon.entity.generated.SpeciesXXX
+import jp.matsuura.pokemon.api.entity.generated.Chain
+import jp.matsuura.pokemon.api.entity.generated.SpeciesXXX
 import jp.matsuura.pokemon.model.PokemonDetailModel
 import jp.matsuura.pokemon.model.PokemonEvolutionModel
 import jp.matsuura.pokemon.repository.PokemonRepository

@@ -1,9 +1,9 @@
 package jp.matsuura.pokemon.api
 
-import jp.matsuura.pokemon.entity.PokemonDetailEntity
-import jp.matsuura.pokemon.entity.PokemonEntity
-import jp.matsuura.pokemon.entity.PokemonEvolutionEntity
-import jp.matsuura.pokemon.entity.PokemonSpeciesEntity
+import jp.matsuura.pokemon.api.entity.PokemonDetailEntity
+import jp.matsuura.pokemon.api.entity.PokemonEntity
+import jp.matsuura.pokemon.api.entity.PokemonEvolutionEntity
+import jp.matsuura.pokemon.api.entity.PokemonSpeciesEntity
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

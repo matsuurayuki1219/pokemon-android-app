@@ -50,5 +50,4 @@ dependencies {
     androidTestImplementation(libs.androidx.test.espresso)
     androidTestImplementation(libs.androidx.compose.ui.test.junit)
     implementation(project(":data:api"))
-    implementation(project(":data:entity"))
 }

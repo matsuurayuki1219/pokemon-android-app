@@ -53,5 +53,5 @@ dependencies {
 
     implementation(project(":model"))
     implementation(project(":data:repository"))
-    implementation(project(":data:entity"))
+    implementation(project(":data:api"))
 }

@@ -1,10 +1,10 @@
 package jp.matsuura.pokemon.repository
 
 import jp.matsuura.pokemon.api.PokemonApi
-import jp.matsuura.pokemon.entity.PokemonDetailEntity
-import jp.matsuura.pokemon.entity.PokemonEntity
-import jp.matsuura.pokemon.entity.PokemonEvolutionEntity
-import jp.matsuura.pokemon.entity.PokemonSpeciesEntity
+import jp.matsuura.pokemon.api.entity.PokemonDetailEntity
+import jp.matsuura.pokemon.api.entity.PokemonEntity
+import jp.matsuura.pokemon.api.entity.PokemonEvolutionEntity
+import jp.matsuura.pokemon.api.entity.PokemonSpeciesEntity
 import javax.inject.Inject
 import javax.inject.Singleton
 

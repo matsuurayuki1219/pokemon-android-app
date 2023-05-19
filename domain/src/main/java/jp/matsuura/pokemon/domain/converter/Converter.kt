@@ -1,6 +1,6 @@
 package jp.matsuura.pokemon.domain.converter
 
-import jp.matsuura.pokemon.entity.generated.Type
+import jp.matsuura.pokemon.api.entity.generated.Type
 import jp.matsuura.pokemon.model.PokemonType
 
 fun Type.toModel(): PokemonType {
