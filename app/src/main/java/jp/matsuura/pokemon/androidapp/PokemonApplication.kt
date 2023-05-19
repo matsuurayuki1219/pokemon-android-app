@@ -1,4 +1,4 @@
-package jp.matsuura.pokemon.androidapp.ui
+package jp.matsuura.pokemon.androidapp
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

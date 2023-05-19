@@ -1,4 +1,4 @@
-package jp.matsuura.pokemon.androidapp.ui
+package jp.matsuura.pokemon.androidapp
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController

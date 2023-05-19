@@ -1,4 +1,4 @@
-package jp.matsuura.pokemon.androidapp.ui
+package jp.matsuura.pokemon.androidapp
 
 sealed class Destination (val route: String) {
     object Home : Destination(route = "home")

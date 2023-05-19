@@ -1,4 +1,4 @@
-package jp.matsuura.pokemon.androidapp.utility
+package jp.matsuura.pokemon.utility
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

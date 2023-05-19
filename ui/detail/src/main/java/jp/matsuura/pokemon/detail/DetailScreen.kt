@@ -84,9 +84,7 @@ fun BackButton(
                 .background(Color.White)
         ) {
             Image(
-                // FIXME: fix later.
-                // painter = painterResource(id = R.drawable.ic_back_button),
-                painter = painterResource(id = coil.base.R.drawable.abc_vector_test),
+                painter = painterResource(id = R.drawable.ic_back_button),
                 contentDescription = null,
                 modifier = Modifier.padding(8.dp)
             )

@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "jp.matsuura.pokemon.api"
+    namespace = "jp.matsuura.pokemon.utility"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -38,16 +38,16 @@ android {
 }
 
 dependencies {
+
     implementation(libs.androidx.coreKtx)
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.compiler)
     implementation(libs.retrofit)
     implementation(libs.retrofit.moshi)
     implementation(libs.moshi)
+    implementation(libs.timber)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.junit)
     androidTestImplementation(libs.androidx.test.espresso)
     androidTestImplementation(libs.androidx.compose.ui.test.junit)
-
-    implementation(project(":utility"))
 }
