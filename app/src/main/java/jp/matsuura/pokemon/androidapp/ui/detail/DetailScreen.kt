@@ -54,7 +54,7 @@ fun DetailScreen(
     ) {
         JacketItem(
             id = state.pokemonInfo.id,
-            name = state.pokemonInfo.name,
+            name = state.pokemonInfo.jaName,
             imageUri = state.pokemonInfo.imageUrl,
         )
         PokemonTypeItems(types = state.pokemonInfo.types)
@@ -250,7 +250,7 @@ fun EvolutionItem(
                         .height(64.dp),
                 )
                 Text(
-                    text = evolutionInfo.name,
+                    text = evolutionInfo.jaName,
                     fontSize = 14.sp,
                     textAlign = TextAlign.Center,
                     modifier = Modifier

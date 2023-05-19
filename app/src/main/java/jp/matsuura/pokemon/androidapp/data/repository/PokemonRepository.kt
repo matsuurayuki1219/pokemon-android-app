@@ -41,4 +41,9 @@ class PokemonRepository @Inject constructor(
         )
     }
 
+    suspend fun getPokemonJaName(pokemonId: Int): String {
+        val names = pokemonApi.getPokemonSpecies(pokemonId = pokemonId).names
+        return names.find { it.language.name == "ja" }?.name ?: throw IllegalStateException()
+    }
+
 }

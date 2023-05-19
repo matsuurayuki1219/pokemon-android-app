@@ -116,7 +116,7 @@ fun PokemonItem(
                     .padding(top = 8.dp),
             )
             Text(
-                text = pokemon.name,
+                text = pokemon.jaName,
                 fontSize = 14.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
