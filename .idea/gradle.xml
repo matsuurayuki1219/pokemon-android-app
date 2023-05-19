@@ -13,10 +13,13 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/data/api" />
-            <option value="$PROJECT_DIR$/data/entity" />
             <option value="$PROJECT_DIR$/data/repository" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/model" />
+            <option value="$PROJECT_DIR$/ui" />
+            <option value="$PROJECT_DIR$/ui/common" />
+            <option value="$PROJECT_DIR$/ui/detail" />
+            <option value="$PROJECT_DIR$/ui/home" />
           </set>
         </option>
       </GradleProjectSettings>

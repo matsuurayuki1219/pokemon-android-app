@@ -1,6 +1,6 @@
 plugins {
     @Suppress("DSL_SCOPE_VIOLATION")
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     @Suppress("DSL_SCOPE_VIOLATION")
     alias(libs.plugins.kotlin)
     @Suppress("DSL_SCOPE_VIOLATION")
@@ -9,26 +9,23 @@ plugins {
 }
 
 android {
-    namespace = "jp.matsuura.pokemon.androidapp"
+    namespace = "jp.matsuura.pokemon.common"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "jp.matsuura.pokemon.androidapp"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk =  libs.versions.targetSdk.get().toInt()
-        versionCode =  libs.versions.versionCode.get().toInt()
-        versionName =  libs.versions.versionName.get()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -43,11 +40,6 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.2"
-    }
-    packagingOptions {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
     }
 }
 
@@ -86,8 +78,4 @@ dependencies {
 
     // coil
     implementation(libs.coil)
-
-    implementation(project(":ui:home"))
-    implementation(project(":ui:detail"))
-
 }

@@ -6,8 +6,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import jp.matsuura.pokemon.androidapp.ui.detail.DetailScreen
-import jp.matsuura.pokemon.androidapp.ui.home.HomeScreen
+import jp.matsuura.pokemon.detail.DetailScreen
+import jp.matsuura.pokemon.home.HomeScreen
 
 @Composable
 fun AppNavHost(navController: NavHostController) {
