@@ -16,8 +16,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
-import jp.matsuura.pokemon.androidapp.model.PokemonModel
 import jp.matsuura.pokemon.androidapp.ui.common.ProgressIndicator
+import jp.matsuura.pokemon.model.PokemonModel
 
 @Composable
 fun HomeScreen(

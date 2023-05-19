@@ -1,6 +1,6 @@
 package jp.matsuura.pokemon.androidapp.ui.detail
 
-import jp.matsuura.pokemon.androidapp.model.PokemonDetailModel
+import jp.matsuura.pokemon.model.PokemonDetailModel
 
 data class DetailScreenState(
     val isProgressVisible: Boolean,

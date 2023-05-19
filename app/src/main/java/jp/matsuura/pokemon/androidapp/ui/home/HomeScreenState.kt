@@ -1,6 +1,6 @@
 package jp.matsuura.pokemon.androidapp.ui.home
 
-import jp.matsuura.pokemon.androidapp.model.PokemonModel
+import jp.matsuura.pokemon.model.PokemonModel
 
 data class HomeScreenState(
     val isLoading: Boolean,

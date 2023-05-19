@@ -19,9 +19,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import jp.matsuura.pokemon.androidapp.R
-import jp.matsuura.pokemon.androidapp.model.PokemonEvolutionModel
-import jp.matsuura.pokemon.androidapp.model.PokemonType
 import jp.matsuura.pokemon.androidapp.ui.common.ProgressIndicator
+import jp.matsuura.pokemon.model.PokemonEvolutionModel
+import jp.matsuura.pokemon.model.PokemonType
 import kotlin.math.ceil
 
 @Composable
@@ -152,8 +152,7 @@ fun PokemonTypeItem(type: PokemonType) {
     Row {
         Row(
             modifier = Modifier
-                .clip(shape = RoundedCornerShape(20.dp))
-                .background(type.color),
+                .clip(shape = RoundedCornerShape(20.dp)),
         ) {
             Text(
                 text = type.type,

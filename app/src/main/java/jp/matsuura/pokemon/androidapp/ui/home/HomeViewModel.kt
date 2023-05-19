@@ -3,7 +3,7 @@ package jp.matsuura.pokemon.androidapp.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jp.matsuura.pokemon.androidapp.domain.GetPokemonInfoUseCase
+import jp.matsuura.pokemon.domain.GetPokemonInfoUseCase
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
