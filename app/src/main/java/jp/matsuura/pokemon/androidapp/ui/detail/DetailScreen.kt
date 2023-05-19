@@ -204,7 +204,7 @@ fun BreedingItem(key: String, value: String) {
 @Composable
 fun EvolutionItems(evolutionInfo: List<PokemonEvolutionModel>) {
     Text(
-        modifier = Modifier.padding(top = 20.dp, bottom = 12.dp, start = 24.dp, end = 24.dp),
+        modifier = Modifier.padding(top = 20.dp, bottom = 16.dp, start = 24.dp, end = 24.dp),
         text = "EVOLUTION",
         fontSize = 20.sp,
         textAlign = TextAlign.Left,
@@ -217,7 +217,7 @@ fun EvolutionItems(evolutionInfo: List<PokemonEvolutionModel>) {
 @Composable
 fun EvolutionItem(evolutionInfo: PokemonEvolutionModel) {
     Column(
-        modifier = Modifier.padding(top = 16.dp, start = 24.dp, end = 24.dp)
+        modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 12.dp)
     ) {
         Card(
             shape = RoundedCornerShape(20.dp),
