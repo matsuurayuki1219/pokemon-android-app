@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "PokemonAndroidApp"
-include ':app'
+include(":app")
