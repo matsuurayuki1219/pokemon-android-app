@@ -1,13 +1,17 @@
 package jp.matsuura.pokemon.androidapp.ui.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
@@ -51,7 +55,9 @@ fun HomeScreen(
         },
     ) {
         Box(
-            modifier = Modifier.padding(it),
+            modifier = Modifier.padding(it).background(
+                color = Color(0xffe6e6e6)
+            )
         ) {
             if (state.isLoading) ProgressIndicator()
             PokemonListItem(
@@ -67,8 +73,8 @@ fun PokemonListItem(
     pokemonList: List<PokemonModel>,
     onCardItemClicked: (String) -> Unit,
 ) {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
+    LazyColumn(
+        modifier = Modifier.padding(top = 12.dp, bottom = 12.dp)
     ) {
         items(pokemonList) { pokemon ->
             PokemonItem(
@@ -86,43 +92,43 @@ fun PokemonItem(
 ) {
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 8.dp, start = 16.dp, end = 16.dp, bottom = 16.dp)
+            .fillMaxWidth()
+            .padding(top = 8.dp, bottom = 8.dp)
     ) {
-        // FIXME: fix the ripple effect.
-        Card(
-            shape = RoundedCornerShape(20.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = Color.White,
-            ),
-            elevation = CardDefaults.cardElevation(
-                defaultElevation = 8.dp
-            ),
-            modifier = Modifier.clickable {
-                onCardItemClicked(pokemon.id)
-            }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onCardItemClicked.invoke(pokemon.id) }
+                .padding(start = 36.dp)
+                .background(
+                    color = Color.White,
+                    shape = RoundedCornerShape(topStart = 60.dp, bottomStart = 60.dp)
+                ),
         ) {
             AsyncImage(
                 model = pokemon.imageUrl,
                 contentDescription = null,
-                modifier = Modifier.padding(top = 16.dp, start = 24.dp, end = 24.dp)
+                modifier = Modifier.height(100.dp)
+                    .padding(start = 24.dp, top = 12.dp, bottom = 12.dp)
             )
-            Text(
-                text = "No.${pokemon.id}",
-                fontSize = 14.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp),
-            )
-            Text(
-                text = pokemon.jaName,
-                fontSize = 14.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 4.dp, bottom = 16.dp),
-            )
+            Column(
+                modifier = Modifier.fillMaxWidth().padding(top = 12.dp, bottom = 12.dp).align(Alignment.CenterVertically)
+            ) {
+                Text(
+                    text = "No.${pokemon.id}",
+                    fontSize = 16.sp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 18.dp),
+                )
+                Text(
+                    text = pokemon.jaName,
+                    fontSize = 16.sp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 4.dp, start = 18.dp),
+                )
+            }
         }
     }
 }
