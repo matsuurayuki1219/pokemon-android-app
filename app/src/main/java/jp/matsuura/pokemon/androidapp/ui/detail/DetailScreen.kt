@@ -50,7 +50,7 @@ fun DetailScreen(
     )
     if (state.pokemonInfo == null) return
     Column(
-        modifier = Modifier.verticalScroll(rememberScrollState())
+        modifier = Modifier.verticalScroll(rememberScrollState()).background(color = Color(0xffe6e6e6))
     ) {
         JacketItem(
             id = state.pokemonInfo.id,
@@ -58,14 +58,14 @@ fun DetailScreen(
             imageUri = state.pokemonInfo.imageUrl,
         )
         PokemonTypeItems(types = state.pokemonInfo.types)
-        BreedingItems(
-            weight = state.pokemonInfo.weight,
-            height = state.pokemonInfo.height,
-        )
-        EvolutionItems(
-            evolutionInfo = state.pokemonInfo.evolutions,
-            onPokemonClicked = onPokemonClicked,
-        )
+//        BreedingItems(
+//            weight = state.pokemonInfo.weight,
+//            height = state.pokemonInfo.height,
+//        )
+//        EvolutionItems(
+//            evolutionInfo = state.pokemonInfo.evolutions,
+//            onPokemonClicked = onPokemonClicked,
+//        )
     }
 }
 
@@ -99,33 +99,29 @@ fun JacketItem(
     name: String,
     imageUri: String,
 ) {
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .background(Color.Green)
-            .padding(32.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
+            .padding(start = 48.dp, end = 48.dp)
     ) {
-        AsyncImage(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 40.dp, end = 40.dp),
-            model = imageUri,
-            contentDescription = null,
-        )
-        Text(
-            modifier = Modifier.padding(top = 20.dp),
-            text = "No.$id",
-            fontSize = 20.sp,
-            textAlign = TextAlign.Center,
-        )
-        Text(
-            modifier = Modifier.padding(top = 12.dp),
-            text = name,
-            fontSize = 24.sp,
-            textAlign = TextAlign.Center,
-        )
+        Column {
+            AsyncImage(
+                modifier = Modifier.fillMaxWidth().padding(top = 24.dp).aspectRatio(1.0f),
+                model = imageUri,
+                contentDescription = null,
+            )
+            Text(
+                modifier = Modifier.padding(top = 20.dp),
+                text = "No.$id",
+                fontSize = 20.sp,
+            )
+            Text(
+                modifier = Modifier.padding(top = 12.dp),
+                text = name,
+                fontSize = 24.sp,
+            )
+        }
     }
 }
 
