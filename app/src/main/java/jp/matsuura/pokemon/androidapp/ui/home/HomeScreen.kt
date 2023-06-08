@@ -4,9 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -14,14 +11,19 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
+import jp.matsuura.pokemon.androidapp.R
+import jp.matsuura.pokemon.androidapp.ext.showToast
 import jp.matsuura.pokemon.androidapp.model.PokemonModel
 import jp.matsuura.pokemon.androidapp.ui.common.ProgressIndicator
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun HomeScreen(
@@ -32,11 +34,25 @@ fun HomeScreen(
     HomeScreen(
         state = state,
         onCardItemClicked = { pokemonId ->
-            // FIXME: notify the event to ViewModel.
-            onCardItemClicked(pokemonId.toInt())
+            viewModel.onCardItemClicked(pokemonId = pokemonId)
         }
     )
-    // TODO: handle the one-shot event.
+    val context = LocalContext.current
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collectLatest { event ->
+            when (event) {
+                is HomeScreenEvent.NetworkError -> {
+                    context.showToast(message = context.getString(R.string.common_network_error))
+                }
+                is HomeScreenEvent.UnknownError -> {
+                    context.showToast(message = context.getString(R.string.common_unknown_error))
+                }
+                is HomeScreenEvent.NavigateToDetail -> {
+                    onCardItemClicked.invoke(event.pokemonId)
+                }
+            }
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -49,18 +65,20 @@ fun HomeScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "Pokemon Library")
+                    Text(text = stringResource(id = R.string.home_tool_bar))
                 },
             )
         },
     ) {
         Box(
-            modifier = Modifier.padding(it).background(
-                color = Color(0xffe6e6e6)
-            )
+            modifier = Modifier
+                .padding(it)
+                .background(
+                    color = colorResource(id = R.color.gray90)
+                )
         ) {
             if (state.isLoading) ProgressIndicator()
-            PokemonListItem(
+            PokemonItems(
                 pokemonList = state.pokemonList,
                 onCardItemClicked = onCardItemClicked,
             )
@@ -69,7 +87,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun PokemonListItem(
+fun PokemonItems(
     pokemonList: List<PokemonModel>,
     onCardItemClicked: (String) -> Unit,
 ) {
@@ -108,11 +126,15 @@ fun PokemonItem(
             AsyncImage(
                 model = pokemon.imageUrl,
                 contentDescription = null,
-                modifier = Modifier.height(100.dp)
+                modifier = Modifier
+                    .height(100.dp)
                     .padding(start = 24.dp, top = 12.dp, bottom = 12.dp)
             )
             Column(
-                modifier = Modifier.fillMaxWidth().padding(top = 12.dp, bottom = 12.dp).align(Alignment.CenterVertically)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 12.dp, bottom = 12.dp)
+                    .align(Alignment.CenterVertically)
             ) {
                 Text(
                     text = "No.${pokemon.id}",
