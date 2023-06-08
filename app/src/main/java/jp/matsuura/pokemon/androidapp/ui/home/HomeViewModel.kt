@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.matsuura.pokemon.androidapp.domain.GetPokemonInfoUseCase
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 
@@ -20,8 +20,8 @@ class HomeViewModel @Inject constructor(
     )
     val uiState = _uiState.asStateFlow()
 
-    private val _uiEvent = MutableSharedFlow<HomeScreenEvent>()
-    val uiEvent = _uiEvent.asSharedFlow()
+    private val _uiEvent: Channel<HomeScreenEvent> = Channel()
+    val uiEvent = _uiEvent.receiveAsFlow()
 
     init {
         viewModelScope.launch {
@@ -29,15 +29,12 @@ class HomeViewModel @Inject constructor(
             kotlin.runCatching {
                 getPokemonInfo()
             }.onSuccess {
-                _uiState.value = _uiState.value.copy(
-                    pokemonList = it,
-                )
+                _uiState.value = _uiState.value.copy(pokemonList = it)
             }.onFailure {
-                Timber.e(it)
                 if (it is IOException) {
-                    _uiEvent.emit(HomeScreenEvent.NetworkError)
+                    _uiEvent.send(HomeScreenEvent.NetworkError)
                 } else {
-                    _uiEvent.emit(HomeScreenEvent.UnknownError(error = it))
+                    _uiEvent.send(HomeScreenEvent.UnknownError(error = it))
                 }
             }
             _uiState.value = _uiState.value.copy(isLoading = false)
@@ -46,7 +43,7 @@ class HomeViewModel @Inject constructor(
 
     fun onCardItemClicked(pokemonId: String) {
         viewModelScope.launch {
-            _uiEvent.emit(
+            _uiEvent.send(
                 HomeScreenEvent.NavigateToDetail(
                     pokemonId = pokemonId.toInt(),
                 )
