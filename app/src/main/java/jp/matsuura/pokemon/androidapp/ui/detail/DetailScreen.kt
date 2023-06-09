@@ -2,19 +2,17 @@ package jp.matsuura.pokemon.androidapp.ui.detail
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
@@ -22,11 +20,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import jp.matsuura.pokemon.androidapp.R
+import jp.matsuura.pokemon.androidapp.ext.showToast
 import jp.matsuura.pokemon.androidapp.model.PokemonEvolutionModel
-import jp.matsuura.pokemon.androidapp.model.PokemonModel
 import jp.matsuura.pokemon.androidapp.model.PokemonType
 import jp.matsuura.pokemon.androidapp.ui.common.PokemonInfoItem
+import jp.matsuura.pokemon.androidapp.ui.common.PokemonItem
 import jp.matsuura.pokemon.androidapp.ui.common.ProgressIndicator
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun DetailScreen(
@@ -38,15 +38,28 @@ fun DetailScreen(
     DetailScreen(
         state = state,
         onButtonClicked = onButtonClicked,
-        onCardItemClicked = onPokemonClicked,
+        onPokemonClicked = onPokemonClicked,
     )
+    val context = LocalContext.current
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collectLatest { event ->
+            when (event) {
+                is DetailScreenEvent.NetworkError -> {
+                    context.showToast(message = context.getString(R.string.common_network_error))
+                }
+                is DetailScreenEvent.UnknownError -> {
+                    context.showToast(message = context.getString(R.string.common_unknown_error))
+                }
+            }
+        }
+    }
 }
 
 @Composable
 fun DetailScreen(
     state: DetailScreenState,
     onButtonClicked: (Unit) -> Unit,
-    onCardItemClicked: (String) -> Unit,
+    onPokemonClicked: (String) -> Unit,
 ) {
     if (state.isProgressVisible) ProgressIndicator()
     BackButton(
@@ -69,7 +82,7 @@ fun DetailScreen(
             )
             PokemonEvolutionItems(
                 pokemonList = state.pokemonInfo.evolutions,
-                onCardItemClicked = onCardItemClicked,
+                onPokemonClicked = onPokemonClicked,
             )
         }
     }
@@ -225,7 +238,7 @@ private fun generateTypes(types: List<PokemonType>): String {
 @Composable
 fun PokemonEvolutionItems(
     pokemonList: List<PokemonEvolutionModel>,
-    onCardItemClicked: (String) -> Unit,
+    onPokemonClicked: (String) -> Unit,
 ) {
     Text(text = "Evolution", fontSize = 24.sp, modifier = Modifier
         .fillMaxWidth()
@@ -233,63 +246,11 @@ fun PokemonEvolutionItems(
     pokemonList.forEach {
         Column {
             PokemonItem(
-                pokemon = it,
-                onCardItemClicked = onCardItemClicked,
+                pokemonId = it.id.toString(),
+                pokemonName = it.jaName,
+                imageUrl = it.imageUrl,
+                onPokemonClicked = onPokemonClicked,
             )
-        }
-    }
-}
-
-@Composable
-fun PokemonItem(
-    pokemon: PokemonEvolutionModel,
-    onCardItemClicked: (String) -> Unit,
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 8.dp, bottom = 8.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { onCardItemClicked.invoke(pokemon.id.toString()) }
-                .padding(start = 36.dp)
-                .background(
-                    color = Color.White,
-                    shape = RoundedCornerShape(topStart = 60.dp, bottomStart = 60.dp)
-                ),
-        ) {
-            AsyncImage(
-                model = pokemon.imageUrl,
-                contentDescription = null,
-                modifier = Modifier
-                    .height(100.dp)
-                    .padding(start = 24.dp, top = 12.dp, bottom = 12.dp)
-            )
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 12.dp, bottom = 12.dp)
-                    .align(
-                        Alignment.CenterVertically
-                    )
-            ) {
-                Text(
-                    text = "No.${pokemon.id}",
-                    fontSize = 16.sp,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 18.dp),
-                )
-                Text(
-                    text = pokemon.jaName,
-                    fontSize = 16.sp,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 4.dp, start = 18.dp),
-                )
-            }
         }
     }
 }
