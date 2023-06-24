@@ -1,13 +1,11 @@
 package jp.matsuura.pokemon.androidapp.data.repository
 
 import jp.matsuura.pokemon.androidapp.data.api.PokemonApi
-import jp.matsuura.pokemon.androidapp.data.converter.toModel
 import jp.matsuura.pokemon.androidapp.data.entity.PokemonDetailEntity
 import jp.matsuura.pokemon.androidapp.data.entity.PokemonEntity
 import jp.matsuura.pokemon.androidapp.data.entity.PokemonEvolutionEntity
 import jp.matsuura.pokemon.androidapp.data.entity.PokemonSpeciesEntity
 import jp.matsuura.pokemon.androidapp.ext.requireBody
-import jp.matsuura.pokemon.androidapp.model.PokemonModel
 import javax.inject.Inject
 import javax.inject.Singleton
 
