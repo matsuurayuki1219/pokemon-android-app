@@ -20,7 +20,7 @@ fun AppNavHost(navController: NavHostController) {
             route = Destination.Home.route,
         ) {
             HomeScreen(
-                onCardItemClicked = { pokemonId ->
+                onPokemonClicked = { pokemonId ->
                     navController.navigate(
                         Destination.Detail.route + "/${pokemonId}"
                     )

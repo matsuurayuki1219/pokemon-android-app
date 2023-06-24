@@ -12,6 +12,6 @@ data class Sprites(
     val front_female: String?,
     val front_shiny: String?,
     val front_shiny_female: String?,
-    val other: Other?,
+    val other: Other,
     val versions: Versions?
 )
