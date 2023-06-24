@@ -12,13 +12,13 @@ class GetPokemonInfoUseCase @Inject constructor(
 ){
     suspend operator fun invoke(): List<PokemonModel> {
         val pokemonList = pokemonRepository.getPokemonInfo()
-        return pokemonList.results.map {
+        return pokemonList.pokemonList.map {
             val pokemonId = it.url.extractLastPathFromUrl()
             val enName = it.name
             val jaName = pokemonRepository.getPokemonJaName(pokemonId = pokemonId)
             val imageUrl = pokemonRepository.getPokemonDetail(
                 pokemonId = pokemonId,
-            ).sprites.other.official_artwork.front_default
+            ).sprites.other.officialArtwork.frontDefault
             PokemonModel(
                 id = pokemonId.toString(),
                 enName = enName,

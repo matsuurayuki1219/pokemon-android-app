@@ -4,8 +4,9 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class PokemonSpeciesEntity(
-    @Json(name = "evolution_chain")
-    val evolutionChain: EvolutionChainEntity,
-    val names: List<NameEntity>,
+data class AbilityEntity(
+    val ability: AbilityDetailEntity?,
+    @Json(name = "is_hidden")
+    val isHidden: Boolean?,
+    val slot: Int?
 )

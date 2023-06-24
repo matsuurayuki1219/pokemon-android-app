@@ -12,7 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import jp.matsuura.pokemon.androidapp.model.PokemonModel
 
 @Composable
 fun PokemonItem(
