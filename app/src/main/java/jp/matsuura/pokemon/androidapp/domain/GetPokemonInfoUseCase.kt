@@ -9,7 +9,7 @@ import javax.inject.Singleton
 @Singleton
 class GetPokemonInfoUseCase @Inject constructor(
     private val pokemonRepository: PokemonRepository,
-){
+) {
     suspend operator fun invoke(): List<PokemonModel> {
         val pokemonList = pokemonRepository.getPokemonInfo()
         return pokemonList.pokemonList.map {

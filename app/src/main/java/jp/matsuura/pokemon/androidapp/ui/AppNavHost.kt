@@ -11,7 +11,6 @@ import jp.matsuura.pokemon.androidapp.ui.home.HomeScreen
 
 @Composable
 fun AppNavHost(navController: NavHostController) {
-
     NavHost(
         navController = navController,
         startDestination = Destination.Home.route,
@@ -22,9 +21,9 @@ fun AppNavHost(navController: NavHostController) {
             HomeScreen(
                 onPokemonClicked = { pokemonId ->
                     navController.navigate(
-                        Destination.Detail.route + "/${pokemonId}"
+                        Destination.Detail.route + "/$pokemonId",
                     )
-                }
+                },
             )
         }
         composable(
@@ -41,11 +40,10 @@ fun AppNavHost(navController: NavHostController) {
                 },
                 onPokemonClicked = { pokemonId ->
                     navController.navigate(
-                        Destination.Detail.route + "/${pokemonId}"
+                        Destination.Detail.route + "/$pokemonId",
                     )
-                }
+                },
             )
         }
     }
-
 }

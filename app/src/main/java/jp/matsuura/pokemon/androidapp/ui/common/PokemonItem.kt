@@ -23,7 +23,7 @@ fun PokemonItem(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 8.dp, bottom = 8.dp)
+            .padding(top = 8.dp, bottom = 8.dp),
     ) {
         Row(
             modifier = Modifier
@@ -32,7 +32,7 @@ fun PokemonItem(
                 .padding(start = 36.dp)
                 .background(
                     color = Color.White,
-                    shape = RoundedCornerShape(topStart = 60.dp, bottomStart = 60.dp)
+                    shape = RoundedCornerShape(topStart = 60.dp, bottomStart = 60.dp),
                 ),
         ) {
             AsyncImage(
@@ -40,16 +40,16 @@ fun PokemonItem(
                 contentDescription = null,
                 modifier = Modifier
                     .height(100.dp)
-                    .padding(start = 24.dp, top = 12.dp, bottom = 12.dp)
+                    .padding(start = 24.dp, top = 12.dp, bottom = 12.dp),
             )
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 12.dp, bottom = 12.dp)
-                    .align(Alignment.CenterVertically)
+                    .align(Alignment.CenterVertically),
             ) {
                 Text(
-                    text = "No.${pokemonId}",
+                    text = "No.$pokemonId",
                     fontSize = 16.sp,
                     modifier = Modifier
                         .fillMaxWidth()

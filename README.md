@@ -1,2 +1,9 @@
 # pokemon-android-app
-PokemonAndroidApp
+
+# Setup
+
+## ktlint
+Run the below code to install githook.
+```
+scripts/githook/install.sh
+```

@@ -18,5 +18,4 @@ class PokemonApplication : Application() {
             Timber.plant(Timber.DebugTree())
         }
     }
-
 }

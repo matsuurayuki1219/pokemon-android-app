@@ -8,5 +8,5 @@ data class AbilityEntity(
     val ability: AbilityDetailEntity?,
     @Json(name = "is_hidden")
     val isHidden: Boolean?,
-    val slot: Int?
+    val slot: Int?,
 )

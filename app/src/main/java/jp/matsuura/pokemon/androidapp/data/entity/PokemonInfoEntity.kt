@@ -5,5 +5,5 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class PokemonInfoEntity(
     val name: String,
-    val url: String
+    val url: String,
 )

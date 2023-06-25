@@ -23,10 +23,10 @@ class GetPokemonDetailInfoUseCase @Inject constructor(
         val height = pokemon.height
         val types = pokemon.types.map { it.toModel() }
         val evolutionChainId = pokemonRepository.getPokemonSpecies(
-            pokemonId = pokemonId
+            pokemonId = pokemonId,
         ).evolutionChain.url.extractLastPathFromUrl()
         val evolutionInfo = pokemonRepository.getPokemonEvolution(
-            id = evolutionChainId
+            id = evolutionChainId,
         ).chain
         val evolutions = flattenEvolutionChain(evolutionChain = evolutionInfo).map {
             val id = it.url.extractLastPathFromUrl()
@@ -37,12 +37,12 @@ class GetPokemonDetailInfoUseCase @Inject constructor(
                 jaName = jaName,
                 imageUrl = pokemonRepository.getPokemonDetail(
                     pokemonId = id,
-                ).sprites.other.officialArtwork.frontDefault
+                ).sprites.other.officialArtwork.frontDefault,
             )
         }
         return PokemonDetailModel(
             id = pokemonId,
-            enName= enName,
+            enName = enName,
             jaName = jaName,
             imageUrl = imageUri,
             types = types,
@@ -60,5 +60,4 @@ class GetPokemonDetailInfoUseCase @Inject constructor(
         }
         return speciesList
     }
-
 }

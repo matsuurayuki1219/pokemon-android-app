@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+echo "Running ktlint check..."
+OUTPUT=$(mktemp "ktlint-XXXXX")
+./gradlew ktlintCheck > "$OUTPUT"
+./gradlew ktlintFormat
+EXIT_CODE=$?
+if [ $EXIT_CODE -ne 0 ]; then
+  cat "$OUTPUT"
+  rm "$OUTPUT"
+  echo "***********************************************"
+  echo "                 ktlint failed                 "
+  echo " Please fix the above issues before committing "
+  echo "***********************************************"
+  exit 1
+else
+  echo "***********************************************"
+  echo "                 detekt success                "
+  echo "***********************************************"
+  cat "$OUTPUT"
+  rm "$OUTPUT"
+fi

@@ -12,5 +12,5 @@ data class HomeEntity(
     @Json(name = "front_shiny")
     val frontShiny: String?,
     @Json(name = "front_shiny_female")
-    val frontShinyFemale: String?
+    val frontShinyFemale: String?,
 )

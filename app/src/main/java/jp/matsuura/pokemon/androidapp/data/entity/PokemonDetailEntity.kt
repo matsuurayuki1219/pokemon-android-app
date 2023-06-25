@@ -9,5 +9,5 @@ data class PokemonDetailEntity(
     val name: String,
     val sprites: SpritesEntity,
     val types: List<TypeEntity>,
-    val weight: Int
+    val weight: Int,
 )

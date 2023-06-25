@@ -17,5 +17,4 @@ object ApiServiceModule {
     fun provideHttpClient(retrofit: Retrofit): PokemonApi {
         return retrofit.create(PokemonApi::class.java)
     }
-
 }

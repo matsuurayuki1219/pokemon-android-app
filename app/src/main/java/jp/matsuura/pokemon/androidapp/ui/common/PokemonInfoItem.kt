@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,15 +24,15 @@ fun PokemonInfoItem(
 ) {
     Box(
         modifier = Modifier
-        .fillMaxWidth()
-        .background(
-            color = Color.White,
-            shape = RoundedCornerShape(topStart = 60.dp, bottomStart = 60.dp),
-        )
+            .fillMaxWidth()
+            .background(
+                color = Color.White,
+                shape = RoundedCornerShape(topStart = 60.dp, bottomStart = 60.dp),
+            ),
     ) {
         Row(
             modifier = Modifier
-                .fillMaxWidth().padding(16.dp)
+                .fillMaxWidth().padding(16.dp),
         ) {
             Image(
                 modifier = Modifier.padding(start = 16.dp),
@@ -48,7 +46,7 @@ fun PokemonInfoItem(
                     .padding(start = 16.dp, end = 16.dp),
                 text = info,
                 fontSize = 18.sp,
-                textAlign = TextAlign.End
+                textAlign = TextAlign.End,
             )
         }
     }
