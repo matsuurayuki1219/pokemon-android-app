@@ -5,7 +5,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import jp.matsuura.pokemon.androidapp.BuildConfig
 import jp.matsuura.pokemon.androidapp.utility.Constant
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -40,5 +39,4 @@ object ApiClientModule {
     fun provideMoshi(): Moshi {
         return Constant.MOSHI
     }
-
 }

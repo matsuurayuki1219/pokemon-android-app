@@ -30,7 +30,7 @@ fun HomeScreen(
         state = state,
         onPokemonClicked = { pokemonId ->
             viewModel.onCardItemClicked(pokemonId = pokemonId)
-        }
+        },
     )
     val context = LocalContext.current
     LaunchedEffect(key1 = true) {
@@ -69,8 +69,8 @@ fun HomeScreen(
             modifier = Modifier
                 .padding(it)
                 .background(
-                    color = colorResource(id = R.color.gray90)
-                )
+                    color = colorResource(id = R.color.gray90),
+                ),
         ) {
             if (state.isLoading) ProgressIndicator()
             PokemonItems(
@@ -87,7 +87,7 @@ fun PokemonItems(
     onPokemonClicked: (String) -> Unit,
 ) {
     LazyColumn(
-        modifier = Modifier.padding(top = 12.dp, bottom = 12.dp)
+        modifier = Modifier.padding(top = 12.dp, bottom = 12.dp),
     ) {
         items(pokemonList) { pokemon ->
             PokemonItem(

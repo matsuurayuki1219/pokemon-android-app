@@ -31,5 +31,4 @@ interface PokemonApi {
     suspend fun getEvolutionChain(
         @Path("chainId") chainId: Int,
     ): Response<PokemonEvolutionEntity>
-
 }

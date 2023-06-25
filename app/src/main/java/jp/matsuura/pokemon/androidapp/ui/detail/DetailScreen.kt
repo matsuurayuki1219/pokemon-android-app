@@ -101,12 +101,12 @@ fun BackButton(
         Column(
             modifier = Modifier
                 .clip(shape = RoundedCornerShape(40.dp))
-                .background(Color.White)
+                .background(Color.White),
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_back_button),
                 contentDescription = null,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(8.dp),
             )
         }
     }
@@ -121,7 +121,7 @@ fun JacketItem(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .wrapContentHeight()
+            .wrapContentHeight(),
     ) {
         Column {
             AsyncImage(
@@ -156,7 +156,7 @@ fun HalfCircleItem(
             painter = painterResource(id = imageRes),
             contentScale = ContentScale.FillBounds,
             contentDescription = null,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
     }
 }
@@ -194,7 +194,7 @@ fun PokemonInfoItem(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 24.dp, top = 24.dp)
+            .padding(start = 24.dp, top = 24.dp),
     ) {
         PokemonInfoItem(
             imageRes = R.drawable.ic_pokemon_type,
@@ -240,9 +240,13 @@ fun PokemonEvolutionItems(
     pokemonList: List<PokemonEvolutionModel>,
     onPokemonClicked: (String) -> Unit,
 ) {
-    Text(text = "Evolution", fontSize = 24.sp, modifier = Modifier
-        .fillMaxWidth()
-        .padding(top = 24.dp, bottom = 12.dp, start = 24.dp))
+    Text(
+        text = "Evolution",
+        fontSize = 24.sp,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 24.dp, bottom = 12.dp, start = 24.dp),
+    )
     pokemonList.forEach {
         Column {
             PokemonItem(

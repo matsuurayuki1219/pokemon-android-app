@@ -32,7 +32,7 @@ class PokemonRepository @Inject constructor(
 
     suspend fun getPokemonSpecies(pokemonId: Int): PokemonSpeciesEntity {
         return pokemonApi.getPokemonSpecies(
-            pokemonId = pokemonId
+            pokemonId = pokemonId,
         ).requireBody()
     }
 
@@ -46,5 +46,4 @@ class PokemonRepository @Inject constructor(
         val names = pokemonApi.getPokemonSpecies(pokemonId = pokemonId).requireBody().names
         return names.find { it.language.name == "ja" }?.name ?: throw IllegalStateException()
     }
-
 }

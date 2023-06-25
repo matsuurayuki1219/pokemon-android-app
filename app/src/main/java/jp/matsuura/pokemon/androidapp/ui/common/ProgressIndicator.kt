@@ -20,7 +20,7 @@ fun ProgressIndicator() {
         CircularProgressIndicator(
             modifier = Modifier
                 .wrapContentHeight()
-                .wrapContentHeight()
+                .wrapContentHeight(),
         )
     }
 }

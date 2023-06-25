@@ -9,5 +9,5 @@ data class PokemonEntity(
     val next: String?,
     val previous: String?,
     @Json(name = "results")
-    val pokemonList: List<PokemonInfoEntity>
+    val pokemonList: List<PokemonInfoEntity>,
 )

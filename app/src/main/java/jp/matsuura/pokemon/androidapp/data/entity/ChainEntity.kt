@@ -9,5 +9,5 @@ data class ChainEntity(
     val evolvesTo: List<ChainEntity>,
     @Json(name = "is_baby")
     val isBaby: Boolean,
-    val species: SpeciesDetailEntity
+    val species: SpeciesDetailEntity,
 )

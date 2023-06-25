@@ -16,7 +16,7 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(
-        HomeScreenState.initValue()
+        HomeScreenState.initValue(),
     )
     val uiState = _uiState.asStateFlow()
 
@@ -46,9 +46,8 @@ class HomeViewModel @Inject constructor(
             _uiEvent.send(
                 HomeScreenEvent.NavigateToDetail(
                     pokemonId = pokemonId.toInt(),
-                )
+                ),
             )
         }
     }
-
 }
