@@ -1,4 +1,4 @@
-package jp.matsuura.pokemon.androidapp.module
+package jp.matsuura.pokemon.androidapp.di
 
 import dagger.Module
 import dagger.Provides

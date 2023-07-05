@@ -93,7 +93,7 @@ fun PokemonItems(
             pokemon?.let {
                 PokemonItem(
                     pokemonId = it.id,
-                    pokemonName = it.jaName,
+                    pokemonName = it.enName,
                     imageUrl = it.imageUrl,
                     onPokemonClicked = onPokemonClicked,
                 )

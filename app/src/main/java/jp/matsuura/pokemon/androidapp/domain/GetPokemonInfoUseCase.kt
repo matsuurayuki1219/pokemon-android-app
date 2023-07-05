@@ -19,14 +19,12 @@ class GetPokemonInfoUseCase @Inject constructor(
             pagingData.map {
                 val pokemonId = it.url.extractLastPathFromUrl()
                 val enName = it.name
-                val jaName = pokemonRepository.getPokemonJaName(pokemonId = pokemonId)
                 val imageUrl = pokemonRepository.getPokemonDetail(
                     pokemonId = pokemonId,
                 ).sprites.other.officialArtwork.frontDefault
                 PokemonModel(
                     id = pokemonId.toString(),
                     enName = enName,
-                    jaName = jaName,
                     imageUrl = imageUrl,
                 )
             }

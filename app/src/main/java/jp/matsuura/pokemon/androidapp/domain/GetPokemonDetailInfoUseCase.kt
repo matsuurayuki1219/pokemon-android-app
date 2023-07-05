@@ -17,7 +17,6 @@ class GetPokemonDetailInfoUseCase @Inject constructor(
     suspend operator fun invoke(pokemonId: Int): PokemonDetailModel {
         val pokemon = pokemonRepository.getPokemonDetail(pokemonId = pokemonId)
         val enName = pokemon.name
-        val jaName = pokemonRepository.getPokemonJaName(pokemonId = pokemonId)
         val imageUri = pokemon.sprites.other.officialArtwork.frontDefault
         val weight = pokemon.weight
         val height = pokemon.height
@@ -30,11 +29,9 @@ class GetPokemonDetailInfoUseCase @Inject constructor(
         ).chain
         val evolutions = flattenEvolutionChain(evolutionChain = evolutionInfo).map {
             val id = it.url.extractLastPathFromUrl()
-            val jaName = pokemonRepository.getPokemonJaName(pokemonId = id)
             PokemonEvolutionModel(
                 id = id,
                 enName = it.name,
-                jaName = jaName,
                 imageUrl = pokemonRepository.getPokemonDetail(
                     pokemonId = id,
                 ).sprites.other.officialArtwork.frontDefault,
@@ -43,7 +40,6 @@ class GetPokemonDetailInfoUseCase @Inject constructor(
         return PokemonDetailModel(
             id = pokemonId,
             enName = enName,
-            jaName = jaName,
             imageUrl = imageUri,
             types = types,
             weight = weight,

@@ -72,7 +72,7 @@ fun DetailScreen(
         Column {
             JacketItem(
                 id = state.pokemonInfo.id,
-                name = state.pokemonInfo.jaName,
+                name = state.pokemonInfo.enName,
                 imageUri = state.pokemonInfo.imageUrl,
             )
             PokemonInfoItem(
@@ -213,7 +213,6 @@ fun PokemonInfoItem(
             title = "Weight",
             info = (weight / 10f).toString() + "kg",
         )
-        Spacer(modifier = Modifier.padding(top = 12.dp))
     }
 }
 
@@ -221,7 +220,7 @@ private fun generateTypes(types: List<PokemonType>): String {
     return if (types.isEmpty()) {
         "None"
     } else if (types.size == 1) {
-        types.first().name
+        types.first().type
     } else {
         val result = StringBuilder()
         types.forEachIndexed { index, type ->
@@ -251,10 +250,11 @@ fun PokemonEvolutionItems(
         Column {
             PokemonItem(
                 pokemonId = it.id.toString(),
-                pokemonName = it.jaName,
+                pokemonName = it.enName,
                 imageUrl = it.imageUrl,
                 onPokemonClicked = onPokemonClicked,
             )
         }
     }
+    Spacer(modifier = Modifier.padding(top = 24.dp))
 }
