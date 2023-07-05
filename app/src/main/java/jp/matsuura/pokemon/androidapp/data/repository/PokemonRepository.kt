@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import jp.matsuura.pokemon.androidapp.data.api.PokemonApi
 import jp.matsuura.pokemon.androidapp.data.datasource.PokemonDataSource
+import jp.matsuura.pokemon.androidapp.data.datasource.PokemonDataSource.Companion.MAX_CACHE_SIZE
 import jp.matsuura.pokemon.androidapp.data.datasource.PokemonDataSource.Companion.PAGE_SIZE
 import jp.matsuura.pokemon.androidapp.data.entity.*
 import jp.matsuura.pokemon.androidapp.ext.requireBody
@@ -24,6 +25,7 @@ class PokemonRepository @Inject constructor(
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
                 enablePlaceholders = false,
+                maxSize = MAX_CACHE_SIZE,
             ),
             pagingSourceFactory = {
                 PokemonDataSource(pokemonApi)

@@ -5,6 +5,7 @@ import androidx.paging.PagingState
 import jp.matsuura.pokemon.androidapp.data.api.PokemonApi
 import jp.matsuura.pokemon.androidapp.data.entity.PokemonInfoEntity
 import jp.matsuura.pokemon.androidapp.ext.requireBody
+import java.lang.Integer.max
 
 class PokemonDataSource(
     private val pokemonApi: PokemonApi,
@@ -15,22 +16,26 @@ class PokemonDataSource(
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PokemonInfoEntity> {
-        val position = params.key ?: STARTING_PAGE_INDEX
-        val offset = if (params.key != null) {
-            ((position - 1) * PAGE_SIZE) + 1
-        } else {
-            STARTING_PAGE_INDEX
-        }
+        // Note: Start paging with the STARTING_KEY if this is the first load
+        val start = params.key ?: STARTING_PAGE_INDEX
+        // Note: // Load as many items as hinted by params.loadSize
+        val range = start.until(start + params.loadSize)
         return try {
-            val resp = pokemonApi.getPokemonList(offset = offset, limit = params.loadSize).requireBody()
+            val resp = pokemonApi.getPokemonList(offset = range.first, limit = params.loadSize).requireBody()
             val nextKey = if (resp.pokemonList.isEmpty()) {
                 null
             } else {
-                position + (params.loadSize / PAGE_SIZE)
+                range.last + 1
+            }
+            // Note: Make sure we don't try to load items behind the STARTING_KEY
+            val prevKey = if (start == STARTING_PAGE_INDEX) {
+                null
+            } else {
+                ensureValidKey(key = range.first - params.loadSize)
             }
             LoadResult.Page(
                 data = resp.pokemonList,
-                prevKey = null,
+                prevKey = prevKey,
                 nextKey = nextKey,
             )
         } catch (e: Exception) {
@@ -38,8 +43,11 @@ class PokemonDataSource(
         }
     }
 
+    private fun ensureValidKey(key: Int) = max(STARTING_PAGE_INDEX, key)
+
     companion object {
         const val PAGE_SIZE = 20
+        const val MAX_CACHE_SIZE = 100
         private const val STARTING_PAGE_INDEX = 0
     }
 }
