@@ -114,4 +114,8 @@ dependencies {
 
     // ktlint
     ktlint(libs.ktlint)
+
+    // paging3
+    implementation(libs.paging3)
+    implementation(libs.paging3.compoase)
 }

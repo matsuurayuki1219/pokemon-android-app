@@ -6,6 +6,6 @@
     <string name="common_unknown_error">想定外のエラーが発生しました。</string>
 
     <!-- home -->
-    <string name="home_tool_bar">POKEMON LIBRARY</string>
+    <string name="home_tool_bar">ポケモン図鑑</string>
 
 </resources>

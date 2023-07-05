@@ -23,11 +23,13 @@ fun PokemonItem(
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .wrapContentHeight()
             .padding(top = 8.dp, bottom = 8.dp),
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .wrapContentHeight()
                 .clickable { onPokemonClicked.invoke(pokemonId) }
                 .padding(start = 36.dp)
                 .background(
